@@ -12,26 +12,34 @@ Instead of assuming everything behind the corporate firewall is safe, the Zero T
 Instead of assuming everything behind the corporate firewall is safe, the Zero Trust model assumes breach and verifies each request as though it originates from an open network. Regardless of where the request originates or what resource it accesses, Zero Trust teaches us to “never trust, always verify.” Every access request is fully authenticated, authorized, and encrypted before granting access.
 ![Zero Trust Architecture](https://www.easefilter.com/images/ZeroTrust.png)
 ## Implement Zero trust file access control with EaseFilter
-EaseFilter File Control Filter Driver allows you to control the file I/O operations with the filter rule configuration by setting the whitelist and blacklist processes or users, you can allow or block the specific file I/O operation to the specific process or user, you can control who can read your file, allow or block the file modification, prevent your important file from being deleted, renamed.
+[EaseFilter File Control Filter Driver]https://www.easefilter.com/kb/file-control-file-security-sdk.htm allows you to control the file I/O operations with the filter rule configuration by setting the whitelist and blacklist processes or users, you can allow or block the specific file I/O operation to the specific process or user, you can control who can read your file, allow or block the file modification, prevent your important file from being deleted, renamed.
 
 To implement the Zero Trust file access control , you can setup the filter rule with the default least privilege access rights, by default all the processes or users don’t have privilege to access the files inside this filter rule, it is zero trust to all processes and users. You can setup the whitelist for the filter rule, to add the specific access rights to specific processes or users, so the processes or users who are in the whitelist can have the specific access rights to the files.
 
-EaseFilter Encryption Filter Driver(EEFD) allows you to encrypt file automatically and transparently, combine with the File Control Filter Driver and Process Filter Driver, you can implement the Zero Trust File Access Control with encryption enabled, it can enhance the file security. By default all files will be encrypted automatically, all processes or users can't read the encrypted files, they will get the raw encrypted data. You can authorize the processes or users to access these encrypted files. 
+[EaseFilter Encryption Filter Driver(EEFD)](https://www.easefilter.com/kb/transparent-file-encryption-filter-driver-sdk.htm) allows you to encrypt file automatically and transparently, combine with the File Control Filter Driver and [Process Filter Driver](https://www.easefilter.com/kb/process-filter-driver-sdk.htm), you can implement the Zero Trust File Access Control with encryption enabled, it can enhance the file security. By default all files will be encrypted automatically, all processes or users can't read the encrypted files, they will get the raw encrypted data. You can authorize the processes or users to access these encrypted files. 
 
 ## How to run ZeroTrustDemo.exe?
 
 Usage: 	ZeroTrustDemo folderNameMask processName e
+
 options:
-folderNameMask       --setup the zero trust folder, i.e. c:\\zerotrust\\*";
-processName          --authorized the process name to access the files, i.e. notepad.exe;
-e or null           --if it is e, it will enable the encryption for zero trust folder.;
+
+folderNameMask       --setup the zero trust folder, i.e. c:\\zerotrust\\*"
+
+processName          --authorized the process name to access the files, i.e. notepad.exe
+
+e or null           --if it is e, it will enable the encryption for zero trust folder.
 
 Example1:
+
 ZeroTrustDemo c:\zerotrust\*  notepade.exe  e
+
 All files in folder c:\zerotrust will be encrypted by default, no process can't read the encrypted files except the process "notepad.exe"
 
 Example2:
+
 ZeroTrustDemo c:\zerotrust\*  notepade.exe 
+
 No process can access the files in folder c:\zerotrust except the process "notepad.exe"
 
 ## EaseFilter File System Filter Driver SDK Reference
