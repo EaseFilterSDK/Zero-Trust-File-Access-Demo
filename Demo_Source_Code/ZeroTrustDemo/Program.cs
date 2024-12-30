@@ -83,6 +83,15 @@ namespace FileProtectorConsole
                 //authorize process notepad.exe with the full access right
                 zeroTrustFilter.ProcessNameAccessRightList.Add(authorizedProcess, FilterAPI.ALLOW_MAX_RIGHT_ACCESS);
 
+                //you can authorize the processes which were signed with your digital certicate with full access right.
+                //zeroTrustFilter.SignedProcessAccessRightList.Add("Certificate name", FilterAPI.ALLOW_MAX_RIGHT_ACCESS);
+
+                //you also can authorize the process which has the same sha256 hash with full access right.
+                //byte[] processSha256Hash = new byte[32];
+                //uint hashBytesLength = 0;
+                //bool ret = FilterAPI.Sha256HashFile("your process name file path", processSha256Hash, ref hashBytesLength);
+                //zeroTrustFilter.Sha256ProcessAccessRightList.Add(processSha256Hash, FilterAPI.ALLOW_MAX_RIGHT_ACCESS);
+
                 //authorize the user with the full access right.
                 //zeroTrustFilter.userAccessRightList.Add("domainname or computer\\username", FilterAPI.ALLOW_MAX_RIGHT_ACCESS);
 
