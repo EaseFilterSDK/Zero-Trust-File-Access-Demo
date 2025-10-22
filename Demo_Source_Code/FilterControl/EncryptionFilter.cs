@@ -269,7 +269,7 @@ namespace EaseFilter.FilterControl
             if (messageSend.DataBufferLength > 0)
             {
                 EncryptionTag = new byte[messageSend.DataBufferLength];
-                Array.Copy(messageSend.DataBuffer, EncryptionTag, messageSend.DataBufferLength);
+                Array.Copy(DataBuffer, EncryptionTag, messageSend.DataBufferLength);
             }
 
             if (messageSend.FilterCommand == (uint)FilterAPI.FilterCommand.FILTER_REQUEST_ENCRYPTION_IV_AND_KEY_AND_TAGDATA)
@@ -277,6 +277,8 @@ namespace EaseFilter.FilterControl
                 //when a new created file, it requests the encryption key, iv and tag data.
                 isNewCreatedFile = true;
             }
+
+            AccessFlags = FilterAPI.ALLOW_MAX_RIGHT_ACCESS;
 
             // this is encrypted file requests the encryption key, iv
             //messageSend.FilterCommand == (uint)FilterAPI.FilterCommand.FILTER_REQUEST_ENCRYPTION_IV_AND_KEY

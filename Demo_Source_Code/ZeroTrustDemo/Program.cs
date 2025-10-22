@@ -14,6 +14,7 @@ namespace FileProtectorConsole
             Console.WriteLine("folderNameMask       --setup the zero trust folder, i.e. c:\\zerotrust\\*");
             Console.WriteLine("processName          --authorized the process name to access the files, i.e. notepad.exe");
             Console.WriteLine("e  or null           --if it is e, it will enable the encryption for zero trust folder.");
+            Console.WriteLine("\r\nExample:\r\n ZeroTrustDemo c:\\zerotrust\\* notepad.exe e         ");
         }
 
         static void Main(string[] args)
@@ -53,7 +54,7 @@ namespace FileProtectorConsole
 
                 //Purchase a license key with the link: http://www.easefilter.com/Order.htm
                 //Email us to request a trial key: info@easefilter.com //free email is not accepted.
-                string licenseKey = "******************************";
+                string licenseKey = "******************************************";
 
                 if (!filterControl.StartFilter(filterType, serviceThreads, connectionTimeOut, licenseKey, ref lastError))
                 {
@@ -72,7 +73,7 @@ namespace FileProtectorConsole
                     //enable encryption for this filter rule.
                     zeroTrustFilter.EnableEncryption = true;
                     //no one can read the encrypted file data by default.
-                    zeroTrustFilter.EnableReadEncryptedFileData = false;
+                    zeroTrustFilter.EnableReadEncryptedData = false;
                     //set up a 32bytes test encryption key for the filter rule.
                     byte[] key = { 0x60, 0x3d, 0xeb, 0x10, 0x15, 0xca, 0x71, 0xbe, 0x2b, 0x73, 0xae, 0xf0, 0x85, 0x7d, 0x77, 0x81, 0x1f, 0x35, 0x2c
                         , 0x07, 0x3b, 0x61, 0x08, 0xd7, 0x2d, 0x98, 0x10, 0xa3, 0x09, 0x14, 0xdf, 0xf4 };
@@ -81,16 +82,7 @@ namespace FileProtectorConsole
                 }
 
                 //authorize process notepad.exe with the full access right
-                zeroTrustFilter.ProcessNameAccessRightList.Add(authorizedProcess, FilterAPI.ALLOW_MAX_RIGHT_ACCESS);
-
-                //you can authorize the processes which were signed with your digital certicate with full access right.
-                //zeroTrustFilter.SignedProcessAccessRightList.Add("Certificate name", FilterAPI.ALLOW_MAX_RIGHT_ACCESS);
-
-                //you also can authorize the process which has the same sha256 hash with full access right.
-                //byte[] processSha256Hash = new byte[32];
-                //uint hashBytesLength = 0;
-                //bool ret = FilterAPI.Sha256HashFile("your process name file path", processSha256Hash, ref hashBytesLength);
-                //zeroTrustFilter.Sha256ProcessAccessRightList.Add(processSha256Hash, FilterAPI.ALLOW_MAX_RIGHT_ACCESS);
+                zeroTrustFilter.AddTrustedProcessRight(FilterAPI.ALLOW_MAX_RIGHT_ACCESS, authorizedProcess, "", "");
 
                 //authorize the user with the full access right.
                 //zeroTrustFilter.userAccessRightList.Add("domainname or computer\\username", FilterAPI.ALLOW_MAX_RIGHT_ACCESS);
@@ -103,12 +95,12 @@ namespace FileProtectorConsole
                     return;
                 }
 
-                Console.WriteLine("Start Zero trust demo succeeded, zero trust folder:" + zeroTrustFolder 
-                    + ",authorized process:" + authorizedProcess + ",eanbleEncryption:" + enableEncryption.ToString() + "\r\n");
+                Console.WriteLine("Start Zero trust demo succeeded,\r\n zero trust folder:" + zeroTrustFolder 
+                    + "\r\nauthorized process:" + authorizedProcess + "\r\neanbleEncryption:" + enableEncryption.ToString() + "\r\n");
 
                 // Wait for the user to quit the program.
-                Console.WriteLine("Press 'q' to quit the sample.");
-                while (Console.Read() != 'q') ;
+                Console.WriteLine("Press any key to quit the sample.");
+                Console.Read();
 
                 filterControl.StopFilter();
 
